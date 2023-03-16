@@ -1,0 +1,65 @@
+.app {
+  font-family: sans-serif;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.body {
+  background-color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.banner-general {
+  font-size: 10%;
+}
+
+.bannerbuttons {
+  background-color: white;
+}
+
+.banner {
+  background-color: lightgreen;
+  margin: 2px;
+}
+
+.card {
+  width: 160px;
+  background-color: lightblue;
+  margin: 5px;
+  padding: 5px;
+}
+
+.tag {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(255, 255, 255, 0.574);
+  padding: 2%;
+}
+
+.img {
+  width: 80%;
+  height: 50%;
+  background-color: green;
+  margin-top: 5%;
+}
+
+.location {
+  width: 160px;
+  background-color: lightseagreen;
+  margin: 5px;
+  padding: 5px;
+}
+
+.type-flex {
+  display: flex;
+  flex-wrap: nowrap
+}
+
+.type-flex-child {
+  width: 100px;
+  margin: 10px;
+  text-align: center;
+  line-height: 75px;
+}
