@@ -1,18 +1,23 @@
 import "./App.css";
 import BannerImg from "./assets/RMBannerestesi.jpg";
 import { useState } from "react";
-import Character from './Character'
-import Location from './Location'
-import Episode from './Episode'
-import Search from './Search'
+import Character from "./Character";
+import Location from "./Location";
+import Episode from "./Episode";
+import Search from "./Search";
+import { BrowserRouter, Link, Router, Routes, Route } from "react-router-dom";
 export type TypeCharacter = { id: number; name: string };
 
 const Container = ({ prop1 }: { prop1: number }) => {
   const [card, setCard] = useState<{ results: TypeCharacter[] }>();
   const [cardType, setCardType] = useState(String);
   const [stateValue, setStateValue] = useState("");
+  const [nextCount, setNextCount] = useState(1);
 
-  const apiCall = (item: string) => {
+  const next = () => {
+    nextCount == 3 ? setNextCount(1) : setNextCount(nextCount + 1);
+  };
+  /*  const apiCall = (item: string) => {
     fetch("https://rickandmortyapi.com/api/" + item)
       .then((response) => response.json())
       .then((data) => {
@@ -22,7 +27,7 @@ const Container = ({ prop1 }: { prop1: number }) => {
         setCardType(item);
         typeof card;
       });
-  };
+  };*/
 
   return (
     <div className="body">
@@ -30,39 +35,75 @@ const Container = ({ prop1 }: { prop1: number }) => {
         <img className="banner-general" src={BannerImg} alt="No" />
       </div>
       <div>
-        <Search
-        stateValue={stateValue}
-        setStateValue={setStateValue}
-        />
+        <Search stateValue={stateValue} setStateValue={setStateValue} />
       </div>
       <div className="bannerbuttons">
         <button
-          className="banner"
+          className="bannerbuttons "
           onClick={() => {
-            apiCall("character");
+            next();
           }}
         >
-          Characters
-        </button>
-        <button
-          className="banner"
-          onClick={() => {
-            apiCall("location");
-          }}
-        >
-          Locations
-        </button>
-        <button
-          className="banner"
-          onClick={() => {
-            apiCall("episode");
-          }}
-        >
-          Episodes
+          {" "}
+          next{" "}
         </button>
       </div>
-      <div>
-        {cardType == "character" ? (
+      <div className="bannerbuttons">
+        <button className="banner">
+          {" "}
+          <Link className="bannerbuttons" to="/characters">
+            Characters
+          </Link>
+        </button>
+        <button className="banner">
+          {" "}
+          <Link className="bannerbuttons" to="/locations">
+            Locations
+          </Link>
+        </button>
+        <button className="banner">
+          {" "}
+          <Link className="bannerbuttons" to="/episodes">
+            Episodes
+          </Link>
+        </button>
+        <Routes>
+          <Route
+            path="/characters"
+            element={
+              <Character
+                prop2={card}
+                searchValue={stateValue}
+                apiprop={"character"}
+              />
+            }
+          />
+
+          <Route
+            path="/locations"
+            element={
+              <Location
+                prop3={card}
+                anotherSearchValue={stateValue}
+                apiprop={"location"}
+              />
+            }
+          />
+
+          <Route
+            path="/episodes"
+            element={
+              <Episode
+                page={nextCount}
+                theOtherSearchValue={stateValue}
+                apiprop={"episode"}
+              />
+            }
+          />
+        </Routes>
+      </div>
+
+      {/* {cardType == "character" ? (
             <div>
           <Character
           prop2={card}
@@ -83,8 +124,7 @@ const Container = ({ prop1 }: { prop1: number }) => {
              </div>
         ) : (
           <div> </div>
-        )}
-      </div>
+        )} */}
     </div>
   );
 };

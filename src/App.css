@@ -16,19 +16,27 @@
 }
 
 .bannerbuttons {
-  background-color: white;
+  background-color:rgb(205, 220, 126);
+  color: black; 
+  margin: 6px;
+  padding: 3px;
+
 }
 
 .banner {
-  background-color: lightgreen;
+  background-color: lightblue;
   margin: 2px;
+  font-size: 12px;
+  
 }
 
 .card {
-  width: 160px;
+  width: 140px;
   background-color: lightblue;
   margin: 5px;
   padding: 5px;
+  display: flex;
+  flex-wrap: inherit;
 }
 
 .tag {
@@ -36,11 +44,12 @@
   justify-content: space-between;
   background-color: rgba(255, 255, 255, 0.574);
   padding: 2%;
+  flex:1;
+  font-size: small;
 }
 
 .img {
   width: 80%;
-  height: 50%;
   background-color: green;
   margin-top: 5%;
 }
@@ -54,7 +63,8 @@
 
 .type-flex {
   display: flex;
-  flex-wrap: nowrap
+  flex-wrap: wrap;
+  max-width: 500px;
 }
 
 .type-flex-child {
