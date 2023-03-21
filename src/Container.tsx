@@ -1,34 +1,61 @@
 import "./App.css";
 import BannerImg from "./assets/RMBannerestesi.jpg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Character from "./Character";
 import Location from "./Location";
 import Episode from "./Episode";
 import Search from "./Search";
-import { BrowserRouter, Link, Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter,
+  Link,
+  Router,
+  Routes,
+  Route,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 export type TypeCharacter = { id: number; name: string };
 
 const Container = ({ prop1 }: { prop1: number }) => {
-  const [card, setCard] = useState<{ results: TypeCharacter[] }>();
-  const [cardType, setCardType] = useState(String);
+  const [searchParams, setSearchParams] = useSearchParams("?page=1");
+  const [scopePages, setScopePages] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
   const [stateValue, setStateValue] = useState("");
-  const [nextCount, setNextCount] = useState(1);
+  const [nextCount, setNextCount] = useState(
+    searchParams.get("page") ? parseInt(searchParams.get("page")!) : 1
+  );
 
-  const next = () => {
-    nextCount == 3 ? setNextCount(1) : setNextCount(nextCount + 1);
+
+  console.log(searchParams.get("page"));
+  console.log(searchParams);
+  
+  const refreshPage = () => {
+    setNextCount(1);
+    
   };
-  /*  const apiCall = (item: string) => {
-    fetch("https://rickandmortyapi.com/api/" + item)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        console.log("hi");
-        setCard(data);
-        setCardType(item);
-        typeof card;
-      });
-  };*/
-
+  const next = () => {
+    if (nextCount == totalPages) {
+      setNextCount(1)
+      setSearchParams("?page="+(1))
+    } 
+     else {
+      setNextCount(nextCount + 1)
+    setSearchParams("?page="+(nextCount+1))  
+    }
+       
+  };
+  
+  const prev = () => {
+    if (nextCount == 1) {
+      setNextCount(1)
+      setSearchParams("?page="+(1))
+    } 
+     else {
+      setNextCount(nextCount - 1)
+    setSearchParams("?page="+(nextCount-1))  
+    }
+  };
+  
   return (
     <div className="body">
       <div>
@@ -37,44 +64,72 @@ const Container = ({ prop1 }: { prop1: number }) => {
       <div>
         <Search stateValue={stateValue} setStateValue={setStateValue} />
       </div>
-      <div className="bannerbuttons">
+
+      <div className="bannerbuttons-ext">
         <button
-          className="bannerbuttons "
+          className="next-prev"
+          onClick={() => {
+            prev();
+          }}
+        >
+          {" "}
+          Prev{" "}
+        </button>
+        <button
+          className="next-prev"
           onClick={() => {
             next();
           }}
         >
           {" "}
-          next{" "}
+          Next{" "}
         </button>
       </div>
+
       <div className="bannerbuttons">
-        <button className="banner">
+        <button
+          className="banner"
+          onClick={() => {
+            refreshPage();
+          }}
+        >
           {" "}
-          <Link className="bannerbuttons" to="/characters">
+          <Link to="/character">
             Characters
           </Link>
         </button>
-        <button className="banner">
+        <button
+          className="banner"
+          onClick={() => {
+            refreshPage();
+          }}
+        >
           {" "}
-          <Link className="bannerbuttons" to="/locations">
+          <Link  to="/locations">
             Locations
           </Link>
         </button>
-        <button className="banner">
+        <button
+          className="banner"
+          onClick={() => {
+            refreshPage();
+          }}
+        >
           {" "}
-          <Link className="bannerbuttons" to="/episodes">
+          <Link  to="/episodes">
             Episodes
           </Link>
         </button>
         <Routes>
           <Route
-            path="/characters"
+            path="/character"
             element={
               <Character
-                prop2={card}
+                page={nextCount}
                 searchValue={stateValue}
                 apiprop={"character"}
+                maxPages={setTotalPages}
+                
               />
             }
           />
@@ -83,9 +138,10 @@ const Container = ({ prop1 }: { prop1: number }) => {
             path="/locations"
             element={
               <Location
-                prop3={card}
+                page={nextCount}
                 anotherSearchValue={stateValue}
                 apiprop={"location"}
+                maxPages={setTotalPages}
               />
             }
           />
@@ -97,6 +153,7 @@ const Container = ({ prop1 }: { prop1: number }) => {
                 page={nextCount}
                 theOtherSearchValue={stateValue}
                 apiprop={"episode"}
+                maxPages={setTotalPages}
               />
             }
           />

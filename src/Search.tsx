@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Search = ({ stateValue, setStateValue }) => {
+const Search = ({ stateValue, setStateValue }:{stateValue:string, setStateValue:(val:string)=>void}) => {
   return (
     <input
       value={stateValue}
@@ -8,7 +8,7 @@ const Search = ({ stateValue, setStateValue }) => {
         setStateValue(event.target.value);
       }}
     />
-  );
+  );    
 };
 
 export default Search;
