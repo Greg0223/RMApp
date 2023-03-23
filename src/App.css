@@ -8,27 +8,52 @@
   background-color: whitesmoke;
   display: flex;
   flex-direction: column;
-  text-align: center;
+  align-items: center;
 }
 
 .banner-general {
   font-size: 10%;
 }
 
-.bannerbuttons {
+.next-prev {
   background-color: white;
+  color: #36b1b9;
+  font-size: 7px;
+  margin: 2px;
+  text-align: center;
+}
+
+.bannerbuttons-ext {
+  background-color: rgb(108 185 158 / 15%);
+  color: black;
+  width: 8%;
+  display: flex;
+  height: 24px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.bannerbuttons {
+  background-color: rgb(108 185 158 / 15%);
+  color: black;
+  margin: 6px;
+  padding: 3px;
 }
 
 .banner {
-  background-color: lightgreen;
-  margin: 2px;
+  background-color: white;
+  margin: 8px;
+  font-size: 8px;
 }
 
 .card {
-  width: 160px;
+  width: 79px;
   background-color: lightblue;
-  margin: 5px;
-  padding: 5px;
+  margin: 3px;
+  padding: 2px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 .tag {
@@ -36,11 +61,12 @@
   justify-content: space-between;
   background-color: rgba(255, 255, 255, 0.574);
   padding: 2%;
+  flex: 1;
+  font-size: 40%;
 }
 
 .img {
   width: 80%;
-  height: 50%;
   background-color: green;
   margin-top: 5%;
 }
@@ -54,7 +80,9 @@
 
 .type-flex {
   display: flex;
-  flex-wrap: nowrap
+  flex-wrap: wrap;
+  max-width: 500px;
+  justify-content: space-evenly;
 }
 
 .type-flex-child {
